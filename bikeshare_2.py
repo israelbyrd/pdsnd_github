@@ -6,7 +6,9 @@ pd.set_option('display.expand_frame_repr', False)
 CITY_DATA = { 'chicago': 'chicago.csv',
               'newyork': 'new_york_city.csv',
               'newyorkcity': 'new_york_city.csv',
-              'washington': 'washington.csv' }
+              'washington': 'washington.csv',
+              'washingtondc': 'washington.csv',
+              'dc': 'washington.csv'}
 
 months=['january','february','march','april','may','june',
         'july','august','september','october','november','december']
