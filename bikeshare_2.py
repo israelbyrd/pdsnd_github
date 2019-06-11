@@ -143,6 +143,8 @@ def user_stats(df):
         print("Count of customers by gender:\n{}\n".format(df.gender.value_counts()))
     # Display earliest, most recent, and most common year of birth
     # Not available for all cities
+    # Rather than filter by city, filter on whether 'birghtyear' column
+    # is available. This makes it easier to incorporate new city data.
     if 'birthyear' in df.columns:
         print("Eldest customer was born in {}.".format(df.birthyear.min()))
         print("Youngest customer was born in {}.".format(df.birthyear.max()))
@@ -185,7 +187,7 @@ def main():
         restart = input("\nType 'yes' to restart bike share analysis or type 'no' to quit: ").lower().replace(" ","")
         while restart != 'no' and restart != 'yes':
             restart = input("Invalid response. Type 'yes' to restart bike share analysis or type 'no' to quit: ").lower().replace(" ","")
-        if restart.lower() != 'yes': #exit on anything other than yes
+        if restart.lower() != 'yes': #Exit on yes. Doesn't execute on input other than yes or no - stuck in loop above.
             break
 
 
