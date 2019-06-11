@@ -151,6 +151,11 @@ def user_stats(df):
     print('-'*40)
 
 def main():
+    """
+    Generates descriptive statistics for bikeshare data.
+    Only one city can be processed at a time.
+    City and filters selected by text prompts.
+    """
     while True:
         city, month, day = get_filters()
         print("Loading {} data with filter settings: month = {}, day = {}.\n".format(city.title(), month, day))
