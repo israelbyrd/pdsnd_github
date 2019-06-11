@@ -38,12 +38,12 @@ def get_filters():
         if not month:
             month = 'all'
     # get user input for day of week (all, monday, tuesday, ... sunday)
-    day = input("Select day of interest (e.g. 'Sunday'), or 'all' to include all days.\nDay filter: ").lower().replace(" ","")
+    day = input("Select day of interest (e.g. 'Sunday'), or 'all' to include all days.\nDay filter: ").lower().replace(" ","")[0:3]
     #default to 'all' if nothing entered.
     if not day:
         day = 'all'
-    while day not in ['sunday','monday', 'tuesday', 'wednesday', 'thursday', 'friday','saturday','all']:
-        day=input("Invalid entry. Select a day of the week or 'all' to include data from all days.\nDay filter: ").lower().replace(" ","")
+    while day not in ['sun','mon', 'tue', 'wed', 'thu', 'fri','sat','all']:
+        day=input("Invalid entry. Select a day of the week or 'all' to include data from all days.\nDay filter: ").lower().replace(" ","")[0:3]
         if not day:
             day = 'all'
     print('-'*40)
@@ -83,7 +83,7 @@ def load_data(city, month, day):
         #filter by month
         df=df[df.month==month]
     if day != 'all':
-        df=df[df.dayofweek == day.title()]
+        df=df[df.dayofweek.str.match(day,case=False)]
     return df
 
 def time_stats(df, month, day):
@@ -126,7 +126,7 @@ def trip_duration_stats(df,day):
     # display total travel time. tripduration column is in seconds but Convert
     # to hours for the total. 60 sec/min * 60 min/hour = 360 seconds/hour
     print("Customers biked for {} hours on {} between {} and {}.".format(round(df.tripduration.sum()/360,2),
-    'all days' if day == 'all' else day.title()+"s",
+    'all days' if day == 'all' else df.dayofweek.unique()[0]+"s",
     df.starttime.min().strftime("%B %d %Y"), pd.to_datetime(df.endtime).max().strftime("%B %d %Y")))
     # display mean travel time in minutes
     print("Average trip duration was {} minutes for this same set of data.".format(round(df.tripduration.mean()/60)))
